@@ -41,11 +41,9 @@ public class ATMControllerImpl implements Observer<ATMCard>, ATMcontroller {
             long currentTime = System.currentTimeMillis();
 
             while (flag) {
-                System.out.println(UserMessage.INPUT_CARD_NUMBER);
                 String cardNumber = bufferedReader.readLine();
                 if (Utils.checkCreditCardNumber(cardNumber)) {
                     for (ATMCard card : atmCards) {
-                        System.out.println(card.getBlokingUntil());
                         if (card.getCardNumber().equals(cardNumber)) {
                             if (card.getBlokingUntil() != 0 && card.getBlokingUntil() > currentTime) {
                                 System.out.println(UserMessage.BLOCKED);
@@ -120,7 +118,6 @@ public class ATMControllerImpl implements Observer<ATMCard>, ATMcontroller {
         System.out.println(UserMessage.BLOCKED);
         atmCard.setStatus(true);
         long currentTime = System.currentTimeMillis();
-        System.out.println(currentTime);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(currentTime);
         calendar.add(Calendar.DATE, 1);
