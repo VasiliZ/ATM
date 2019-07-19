@@ -1,7 +1,6 @@
-/**
- * Created by Home on 18.07.2019.
- */
-public abstract class AbstractFileReader<T> implements FileActions<T> {
+package data;
+
+public abstract class AbstractFileWorker<T> implements FileActions<T> {
 
     public void openFile() {
         try {

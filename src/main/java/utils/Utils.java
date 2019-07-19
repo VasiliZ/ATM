@@ -3,22 +3,27 @@ package utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Home on 18.07.2019.
- */
 public class Utils {
-    public static boolean checkCreditCardNumber(String inputCardNumber){
+    public static boolean checkCreditCardNumber(String inputCardNumber) {
         String stringPattern = "(\\d{4}[-]\\d{4}[-]\\d{4}[-]\\d{4})";
-        Pattern pattern = Pattern.compile(stringPattern);
-        Matcher matcher = pattern.matcher(inputCardNumber);
-        return matcher.matches();
+        return verifyInput(inputCardNumber, stringPattern);
 
     }
 
     public static boolean checkPin(String pin) {
         String stringPattern = "\\d{4}";
+        return verifyInput(pin, stringPattern);
+    }
+
+    public static boolean checkBackSymbol(String backSymbol) {
+        String pattern = "[<]";
+        return verifyInput(backSymbol, pattern);
+    }
+
+
+    private static boolean verifyInput(String inputData, String stringPattern) {
         Pattern pattern = Pattern.compile(stringPattern);
-        Matcher matcher = pattern.matcher(pin);
+        Matcher matcher = pattern.matcher(inputData);
         return matcher.matches();
     }
 }
