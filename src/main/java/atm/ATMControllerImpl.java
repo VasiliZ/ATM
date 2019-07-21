@@ -17,10 +17,15 @@ import java.util.List;
 public class ATMControllerImpl implements Observer<ATMCard>, ATMcontroller {
     private FileActions fileActions;
     private int countEnterWrongPin = 3;
+    private String path;
+
+    public ATMControllerImpl(String pathToDataFile) {
+        this.path = pathToDataFile;
+    }
 
     public void start() {
         System.out.println(UserMessage.HELLO_USER);
-        fileActions = new FileWorker(this);
+        fileActions = new FileWorker(this, path);
         fileActions.openFile();
     }
 
@@ -28,19 +33,19 @@ public class ATMControllerImpl implements Observer<ATMCard>, ATMcontroller {
     @Override
     public void logIn(final List<ATMCard> data) {
         if (!data.isEmpty()) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            inputCreditCardNumber(bufferedReader, data);
+            inputCreditCardNumber(data);
         }
     }
 
 
     @Override
-    public void inputCreditCardNumber(final BufferedReader bufferedReader, final List<ATMCard> atmCards) {
-        try {
+    public void inputCreditCardNumber(final List<ATMCard> atmCards) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
             boolean flag = true;
             long currentTime = System.currentTimeMillis();
 
             while (flag) {
+                System.out.println(UserMessage.INPUT_CARD_NUMBER);
                 String cardNumber = bufferedReader.readLine();
                 if (Utils.checkCreditCardNumber(cardNumber)) {
                     for (ATMCard card : atmCards) {

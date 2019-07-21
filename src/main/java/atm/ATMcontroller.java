@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ATMcontroller {
 
-    void inputCreditCardNumber(BufferedReader bufferedReader, List<ATMCard> cardList);
+    void inputCreditCardNumber(List<ATMCard> cardList);
 
     void inputPin(BufferedReader bufferedReader, ATMCard atmCard);
 

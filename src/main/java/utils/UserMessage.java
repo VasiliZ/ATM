@@ -21,4 +21,7 @@ public interface UserMessage {
     String REFILL_MENU_ITEM = "3. Refill your bill";
     String EXIT = "4. Exit";
     String BLOCKED = "Your card is blocked";
+    String SET_ARGS = "Please set command line args with path to data file";
+    String FILE_NOT_FOUND = "File not found";
+    String ERROR_WRITING = "Error write data to file";
 }

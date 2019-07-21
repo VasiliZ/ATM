@@ -4,6 +4,7 @@ import atm.ATMControllerImpl;
 import atm.Observer;
 import atm.Subject;
 import model.ATMCard;
+import utils.UserMessage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,11 +14,12 @@ public class FileWorker extends AbstractFileWorker<File> implements Subject<ATMC
 
     private final List<ATMCard> cardList = new ArrayList<>();
     private final List<Observer> observers;
-    private final String PATH = "d:\\data.txt";
+    private final String PATH;
 
-    public FileWorker(ATMControllerImpl atmControllerImpl) {
+    public FileWorker(ATMControllerImpl atmControllerImpl, String path) {
         this.observers = new ArrayList<>();
         register(atmControllerImpl);
+        this.PATH = path;
     }
 
 
@@ -42,7 +44,7 @@ public class FileWorker extends AbstractFileWorker<File> implements Subject<ATMC
             }
             notifyAllObServers(cardList);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(UserMessage.FILE_NOT_FOUND);
         }
     }
 
@@ -54,7 +56,7 @@ public class FileWorker extends AbstractFileWorker<File> implements Subject<ATMC
             }
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(UserMessage.ERROR_WRITING);
         }
     }
 
